@@ -13,7 +13,7 @@ sudo apt install -y git wget curl build-essential apache2 mariadb-server mariadb
 
 ```bash
 cd /usr/src
-sudo git clone https://gerrit.asterisk.org/asterisk asterisk-20
+sudo git clone -b 20 https://github.com/asterisk/asterisk.git asterisk-20
 cd asterisk-20
 sudo contrib/scripts/install_prereq install
 sudo ./configure
