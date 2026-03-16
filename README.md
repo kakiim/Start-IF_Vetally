@@ -75,9 +75,37 @@ sudo ./install -n
 Configurer Apache pour FreePBX :
 
 ```bash
-sudo sed -i 's/\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
-sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+sudo mv /etc/apache2 /etc/apache2_backup
+sudo apt purge apache2 apache2-bin apache2-utils apache2-data -y
+sudo apt autoremove -y
+sudo apt install apache2 -y
+sudo systemctl start apache2
+sudo nano /etc/apache2/envvars
+```
+Il faut chercher les lignes :
+export APACHE_RUN_USER=www-data
+export APACHE_RUN_GROUP=www-data
+
+Et remplacer par :
+export APACHE_RUN_USER=asterisk
+export APACHE_RUN_GROUP=asterisk
+
+(pour quitter faire ctrl+x puis Y puis entrer)
+
+```bash
 sudo a2enmod rewrite
+sudo nano /etc/apache2/apache2.conf
+```
+
+Il faut chercher la ligne :
+AllowOverride None
+
+Et remplacer par :
+AllowOverride All
+
+(pour quitter faire ctrl+x puis Y puis entrer)
+
+```bash
 sudo systemctl restart apache2
 ```
 
