@@ -6,7 +6,7 @@
 sudo apt update
 sudo apt install -y git wget curl build-essential apache2 mariadb-server mariadb-client \
   php php-cli php-common php-curl php-mysql php-mbstring php-xml php-gd php-bcmath php-zip \
-  php-intl php-soap php-ldap nodejs npm sox
+  php-intl php-soap php-ldap nodejs npm sox libedit-dev
 ```
 
 ## 2. Installer Asterisk
