@@ -31,12 +31,24 @@ sudo systemctl enable asterisk
 sudo systemctl start asterisk
 ```
 
-## 3. Installer FreePBX
+## 3. Installer FreePBX 17
+
+Utiliser le script d'installation officiel de Sangoma (Debian 12) :
 
 ```bash
-cd /usr/src
-sudo git clone https://github.com/freepbx/freepbx.git
-cd freepbx
-sudo ./start_asterisk start
-sudo ./install -n
+cd /tmp
+wget https://github.com/FreePBX/sng_freepbx_debian_install/raw/master/sng_freepbx_debian_install.sh -O /tmp/sng_freepbx_debian_install.sh
+bash /tmp/sng_freepbx_debian_install.sh
 ```
+
+> Le script installe automatiquement toutes les dépendances nécessaires, Asterisk, et FreePBX.
+> Les logs d'installation sont disponibles dans `/var/log/pbx/freepbx17-install.log`.
+
+Options disponibles :
+
+| Option | Description |
+|---|---|
+| `--dahdi` | Installe avec le support DAHDI (cartes Sangoma) |
+| `--opensourceonly` | Installe uniquement les modules open source |
+| `--nofreepbx` | Prépare l'environnement sans installer FreePBX |
+| `--noasterisk` | Installe sans Asterisk (pour utiliser votre propre version) |
