@@ -60,6 +60,15 @@ sudo wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest
 sudo tar -xvzf freepbx-17.0-latest.tgz
 cd freepbx/
 sudo ./start_asterisk start
+sudo adduser --system --group --home /var/lib/asterisk asterisk
+sudo chown -R asterisk:asterisk /var/run/asterisk
+sudo chown -R asterisk:asterisk /etc/asterisk
+sudo chown -R asterisk:asterisk /var/{lib,log,spool}/asterisk
+sudo chown -R asterisk:asterisk /usr/lib/asterisk
+sudo pkill asterisk
+cd /usr/src/freepbx
+sudo ./start_asterisk start
+ps aux | grep asterisk
 sudo ./install -n
 ```
 
