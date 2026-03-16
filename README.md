@@ -33,16 +33,13 @@ sudo systemctl start asterisk
 
 ## 3. Installer FreePBX 17
 
-Utiliser le script d'installation officiel de Sangoma (Debian 12) :
+### Option A : Script officiel Sangoma (Debian 12 uniquement)
 
 ```bash
 cd /tmp
 wget https://github.com/FreePBX/sng_freepbx_debian_install/raw/master/sng_freepbx_debian_install.sh -O /tmp/sng_freepbx_debian_install.sh
 bash /tmp/sng_freepbx_debian_install.sh
 ```
-
-> Le script installe automatiquement toutes les dépendances nécessaires, Asterisk, et FreePBX.
-> Les logs d'installation sont disponibles dans `/var/log/pbx/freepbx17-install.log`.
 
 Options disponibles :
 
@@ -52,3 +49,27 @@ Options disponibles :
 | `--opensourceonly` | Installe uniquement les modules open source |
 | `--nofreepbx` | Prépare l'environnement sans installer FreePBX |
 | `--noasterisk` | Installe sans Asterisk (pour utiliser votre propre version) |
+
+### Option B : Installation manuelle (Ubuntu / Debian)
+
+Télécharger et extraire FreePBX :
+
+```bash
+cd /usr/src
+sudo wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz
+sudo tar -xvzf freepbx-17.0-latest.tgz
+cd freepbx/
+sudo ./start_asterisk start
+sudo ./install -n
+```
+
+Configurer Apache pour FreePBX :
+
+```bash
+sudo sed -i 's/\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+```
+
+> **Note :** Sur Ubuntu 22.04, PHP 8.2 n'est pas disponible par défaut. Il faut ajouter le PPA `ppa:ondrej/php` avant d'installer les dépendances PHP.
